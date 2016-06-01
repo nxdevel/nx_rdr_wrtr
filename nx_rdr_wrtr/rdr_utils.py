@@ -95,11 +95,11 @@ def _get_fields(rdr, fields, handler, leading_ws, trailing_ws, ignore_blanks,
         fields = [getattr(col, 'name', col) for col in fields]
     if not fields:
         raise ValueError('no fields specified')
+    ignore = fields if ignore_rows_with_fields else None
     if field_rename:
         fields = [field_rename.get(x, x) for x in fields]
     if len(fields) != len(set(fields)):
         raise ValueError('duplicate field names', fields)
-    ignore = fields if ignore_rows_with_fields else None
     rdr = list_reader(rdr, leading_ws=leading_ws, trailing_ws=trailing_ws,
                       ignore_blanks=ignore_blanks, ignore=ignore,
                       handler=handler)
